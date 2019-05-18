@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sym</groupId>
+    <artifactId>springSecurity-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>springSecurity-parent</name>
+    <description>springSecurity+oAuth2+Social知识点，这是一个父工程，指定全局jar包</description>
+
+    <modules>
+        <module>sym-core</module>
+        <module>sym-app</module>
+        <module>sym-browser</module>
+        <module>sym-demo</module>
+    </modules>
+
+	<properties>
+		<java.source.version>1.8</java.source.version>
+		<java.target.version>1.8</java.target.version>
+		<encode>UTF-8</encode>
+	</properties>
+
+    <!-- 在父模块中指定pom依赖管理 -->
+    <dependencyManagement>
+		<dependencies>
+			<!-- Spring IO Platform是spring提供的依赖维护平台 -->
+			<dependency>
+				<groupId>io.spring.platform</groupId>
+				<artifactId>platform-bom</artifactId>
+				<version>Brussels-SR4</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--springCloud依赖管理-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Dalston.SR2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- maven编译插件 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.source.version}</source>
+					<target>${java.target.version}</target>
+					<encoding>${encode}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+
+
+</project>

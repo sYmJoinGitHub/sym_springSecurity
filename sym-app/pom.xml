@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.sym</groupId>
+        <artifactId>springSecurity-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>springSecurity-app</artifactId>
+    <packaging>jar</packaging>
+
+    <name>springSecurity-app</name>
+    <description>springSecurity+oAuth2+Social知识点，应用于手机APP工程</description>
+
+    <dependencies>
+
+        <!-- app模块引入core模块即可 -->
+        <dependency>
+            <groupId>com.sym</groupId>
+            <artifactId>springSecurity-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
+    
+</project>

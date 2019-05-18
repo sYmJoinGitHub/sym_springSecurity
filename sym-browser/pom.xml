@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.sym</groupId>
+        <artifactId>springSecurity-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>springSecurity-browser</artifactId>
+    <packaging>jar</packaging>
+
+    <name>springSecurity-browser</name>
+    <description>springSecurity+oAuth2+Social知识点，应用于浏览器</description>
+
+    <dependencies>
+
+        <!-- browser模块引入core模块 -->
+        <dependency>
+            <groupId>com.sym</groupId>
+            <artifactId>springSecurity-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- browser还需要引入spring-session模块，做session管理 -->
+        <dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session</artifactId>
+		</dependency>
+
+    </dependencies>
+
+    
+</project>
