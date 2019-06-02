@@ -1,9 +1,11 @@
 package com.sym.controller;
 
 import com.sym.entity.ResultInfo;
+import com.sym.entity.SymSecurityProperties;
 import com.sym.entity.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -34,7 +36,16 @@ public class UserController {
      */
     private RequestCache requestCache = new HttpSessionRequestCache();
 
+    /*
+     * springSecurity提供的用于重定向的工具类
+     */
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    /*
+     * 映射application.yml的配置属性类，提供多样的选择
+     */
+    @Autowired
+    private SymSecurityProperties symSecurityProperties;
 
 
     /**

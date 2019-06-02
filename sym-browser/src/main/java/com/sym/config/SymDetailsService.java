@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
  * Created by 沈燕明 on 2019/5/29.
  */
 @Component
-public class MyDetailsService implements UserDetailsService {
+public class SymDetailsService implements UserDetailsService {
 
-    private final static Logger logger = LoggerFactory.getLogger(MyDetailsService.class);
+    private final static Logger logger = LoggerFactory.getLogger(SymDetailsService.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,6 +47,7 @@ public class MyDetailsService implements UserDetailsService {
         String encodePassword = passwordEncoder.encode("123456");
         logger.info("加密后的密码={}",encodePassword);
         return new User(username,encodePassword,true,
-                true,true,true, AuthorityUtils.NO_AUTHORITIES);
+                true,true,true,
+                AuthorityUtils.NO_AUTHORITIES);
     }
 }
