@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableConfigurationProperties(SymSecurityProperties.class) //让自定义的配置属性类生效
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /*
      * 自定义登录成功后的处理类
@@ -53,19 +53,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
          * 组件，就可以通过and()继续获取HttpSecurity对象，调用它其它方法获取其它组件
          */
         http.formLogin()//获取表单登录组件
-                //.loginPage("/signIn.html")//你可以直接在这里配置一个登录页面
+                //.loginPage("/signIn.html")//可以直接在这里配置一个登录页面
                 .loginPage("/loginHandler")//也可以将登录页面改为请求一个Controller的映射，其实建议这样做，这样可以区分不同请求，返回不同的内容
                 .usernameParameter("customerName")//指定登录请求的用户名，默认为username
                 .passwordParameter("customerPwd")//指定登录请求的密码，默认为password
                 //.successForwardUrl("/succeedAfterLogin")//登录成功后的跳转地址，默认为用户之前请求的地址
-                //.failureForwardUrl("/failedAfterLogin")//登录失败后的跳转地址
+                //.failureForwardUrl("/failedAfterLogin")//登录失败后的跳转地址，默认会抛出异常。当我们指定登陆失败的跳转地址，一定要将它放行不再认证
                 .successHandler(symSignInSuccessHandler)//自定义登录成功后的处理方式
                 .failureHandler(symSignInFailedHandler)//自定义登录失败后的处理方式
                 .loginProcessingUrl("/signIn")//指定校验的url，前端登录把请求提交到此url即可
                 .and()//切换到HttpSecurity组件
                 .csrf().disable()//停止CSRF校验
                 .authorizeRequests()//获取授权组件
-                .antMatchers("/signIn","/loginHandler","/signIn.html").permitAll()//登录页不用校验
+                .antMatchers("/signIn","/loginHandler","/failedAfterLogin",symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()//登录页不用校验
                 .anyRequest().authenticated();//其它页面需要校验
     }
 

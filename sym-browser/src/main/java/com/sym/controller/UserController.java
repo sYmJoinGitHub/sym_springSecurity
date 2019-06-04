@@ -70,33 +70,31 @@ public class UserController {
                 // 带有html字样的说明是浏览器发起的请求
                 if (s.contains("html")) {
                     //response.sendRedirect("/signIn.html");
-                    redirectStrategy.sendRedirect(request,response,"/signIn.html");
+                    redirectStrategy.sendRedirect(request,response,symSecurityProperties.getBrowser().getSignInHtmlPath());
                     return null;
                 }
             }
-
         }
         // 其它情况返回JSON字符串
         return ResultInfo.failed("请先登录~！");
-
     }
 
     /**
-     * 成功登录会将请求转发到这个方法上
+     * 如果配置登陆成功转发地址：成功登录会将请求转发到这个方法上
      *
      * @return
      */
-    @RequestMapping("succeedAfterLogin")
+    @RequestMapping("/succeedAfterLogin")
     public String loginSucceed() {
         return "恭喜你已经成功登录了";
     }
 
     /**
-     * 登录失败会将请求转发到这个方法上
+     * 如果配置登陆失败转发地址：登录失败会将请求转发到这个方法上
      *
      * @return
      */
-    @RequestMapping("failedAfterLogin")
+    @RequestMapping("/failedAfterLogin")
     public String loginFailed() {
         return "账户或密码错误";
     }

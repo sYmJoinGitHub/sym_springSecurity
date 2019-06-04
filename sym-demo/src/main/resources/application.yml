@@ -1,10 +1,9 @@
 server:
   port: 6565
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    password:
-    url: jdbc:mysql://127:0:0:1:3306/spring_study?useUnicode=true&characterEncoding=utf-8
-mybatis:
-  mapper-locations: com/sym/mapper/*.xml
+  thymeleaf:
+    prefix: classpath:/page/
+    suffix: .html
+security:
+  basic:
+    enabled: false #关闭springSecurity

@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  * AuthenticationSuccessHandler接口，可以实现它定义登录成功后的处理方式。
- * 默认springSecurity是用SavedRequestAwareAuthenticationSuccessHandler这个类处理的
+ * 默认springSecurity是用 SavedRequestAwareAuthenticationSuccessHandler 这个类处理的
  * (它的处理方式是直接跳转到用户在登录之前请求的URL地址)
  * 如果我们不想全部定义，也可以继承它，重写onAuthenticationSuccess()方法即可
  *
