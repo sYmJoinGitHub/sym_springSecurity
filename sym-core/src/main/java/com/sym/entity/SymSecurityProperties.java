@@ -18,4 +18,5 @@ public class SymSecurityProperties {
 
     private BrowserSecurityProperties browser = new BrowserSecurityProperties();//如果用户没配置，默认就是这个，否则用户的配置会覆盖掉此实例
 
+    private ImageCodeProperties image = new ImageCodeProperties();//如果用户没配置，默认就是这个，否则用户的配置会覆盖掉此实例
 }

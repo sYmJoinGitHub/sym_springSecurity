@@ -1,6 +1,7 @@
 package com.sym.config;
 
 import com.sym.entity.SymSecurityProperties;
+import com.sym.filter.ImageCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * 要配置springSecurity就需要继承 WebSecurityConfigurerAdapter，
@@ -52,8 +54,9 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
          * 后面的代码就是基于表单验证组件做配置；当配置完表单登录组件后，想配置其它
          * 组件，就可以通过and()继续获取HttpSecurity对象，调用它其它方法获取其它组件
          */
-        http.formLogin()//获取表单登录组件
-                //.loginPage("/signIn.html")//可以直接在这里配置一个登录页面
+        http.addFilterBefore(new ImageCodeFilter(symSecurityProperties,symSignInFailedHandler), UsernamePasswordAuthenticationFilter.class)//将自定义的过滤器放在指定过滤器前面
+                .formLogin()//获取表单登录组件
+                //.loginPage("/signIn.html")//指定登陆页面，当springSecurity发现一个请求未认证时,就会将请求转发到这里
                 .loginPage("/loginHandler")//也可以将登录页面改为请求一个Controller的映射，其实建议这样做，这样可以区分不同请求，返回不同的内容
                 .usernameParameter("customerName")//指定登录请求的用户名，默认为username
                 .passwordParameter("customerPwd")//指定登录请求的密码，默认为password
@@ -65,7 +68,7 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()//切换到HttpSecurity组件
                 .csrf().disable()//停止CSRF校验
                 .authorizeRequests()//获取授权组件
-                .antMatchers("/signIn","/loginHandler","/failedAfterLogin",symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()//登录页不用校验
+                .antMatchers("/signIn","/loginHandler","/getImage","/failedAfterLogin",symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()//登录页不用校验
                 .anyRequest().authenticated();//其它页面需要校验
     }
 

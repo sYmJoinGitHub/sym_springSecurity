@@ -51,6 +51,6 @@ public class SymSignInFailedHandler implements AuthenticationFailureHandler {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=utf-8");
         //这边直接把springSecurity封装异常信息对象返回回去
-        response.getWriter().println(objectMapper.writeValueAsString(exception));
+        response.getWriter().println(objectMapper.writeValueAsString("登陆失败原因："+exception.getMessage()));
     }
 }
