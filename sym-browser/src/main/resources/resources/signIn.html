@@ -15,17 +15,20 @@
     <form action="signIn" method="post">
         <label for="username">用户名：</label>
         <input id="username" name="customerName" placeholder="请输入用户名" style="width: 135px;height: 20px" />
-        <br/>
-        <br/>
+        <br/><br/>
+
         <label for="password">密码：&nbsp&nbsp&nbsp</label>
         <input id="password" name="customerPwd" type="password" placeholder="请输入密码" style="width: 135px;height: 20px" />
-        <br/>
-        <br/>
+        <br/><br/>
+
         <label for="request:imageCode">验证码：</label>
         <input id="request:imageCode" name="request:imageCode" placeholder="请输入验证码" style="width: 90px;height: 20px" />
         <img id="imageCode" src="/getImage" onclick="changeCode()">
-        <br/>
-        <br/>
+        <br/><br/>
+
+        <input type="radio" name="remember-me"/>记住我
+        <br/><br/>
+
         <input type="submit" value="登录" style="height: 25px;width: 50px;" />
     </form>
 </body>
