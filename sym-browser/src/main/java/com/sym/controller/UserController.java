@@ -4,10 +4,13 @@ import com.sun.deploy.net.HttpResponse;
 import com.sym.constant.BrowserConstant;
 import com.sym.entity.*;
 import com.sym.util.ImageCodeUtil;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -27,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by 沈燕明 on 2019/5/29.
@@ -120,6 +124,10 @@ public class UserController {
         return Arrays.asList(new UserDto(1L, "张三", 23), new UserDto(2L, "李四", 28));
     }
 
+    @GetMapping("me")
+    public Authentication getAuthentication(){
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 
     /**
      * 获取图片验证码
@@ -136,5 +144,27 @@ public class UserController {
         ImageCodeBean imageCodeBean = ImageCodeUtil.getImageCode(width,height,length,expireTime);
         sessionStrategy.setAttribute(new ServletWebRequest(request), BrowserConstant.SESSION_IMAGE_CODE,imageCodeBean);
         ImageIO.write(imageCodeBean.getImage(),"jpeg",response.getOutputStream());
+    }
+
+
+    /**
+     * 获取短信验证码
+     * @param request
+     * @param response
+     */
+    @RequestMapping("getSmsCode")
+    public void getSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        StringBuffer sb = new StringBuffer();
+        Random r = new Random();
+        for( int i=0;i<4;i++ ){
+            sb.append( r.nextInt(10) );
+        }
+        sessionStrategy.setAttribute(new ServletWebRequest(request), BrowserConstant.SESSION_SMS_CODE,sb.toString());
+        response.setContentType("text/html;charset=utf-8");
+        StringBuilder jsBuilder = new StringBuilder();
+        jsBuilder.append("<script>");
+        jsBuilder.append("alert(\"您的验证码是").append(sb.toString()).append("\");");
+        jsBuilder.append("</script>");
+        response.getWriter().println(jsBuilder.toString());
     }
 }

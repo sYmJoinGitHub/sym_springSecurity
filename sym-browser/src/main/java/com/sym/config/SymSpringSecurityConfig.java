@@ -2,6 +2,8 @@ package com.sym.config;
 
 import com.sym.entity.SymSecurityProperties;
 import com.sym.filter.ImageCodeFilter;
+import com.sym.filter.SmsCodeFilter;
+import com.sym.sms.SmsAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +55,12 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private SmsAuthenticationProvider smsAuthenticationProvider;
+
+    @Autowired
+    private SmsCodeSecurityConfigurerAdapter smsCodeSecurityConfigurerAdapter;
+
     /**
      * springSecurity的配置全在这个方法的参数HttpSecurity，通过它来配置认证、授权的方方面面
      * 重写 configure(HttpSecurity http) 方法来自定义我们的配置
@@ -67,8 +75,14 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
          * 后面的代码就是基于表单验证组件做配置；当配置完表单登录组件后，想配置其它
          * 组件，就可以通过and()继续获取HttpSecurity对象，调用它其它方法获取其它组件
          */
+
+
+
+        httpSecurity.authenticationProvider(smsAuthenticationProvider);
+
         httpSecurity
                 //添加将自定义的过滤器放在指定过滤器前面
+                .addFilterBefore(new SmsCodeFilter(symSecurityProperties,symSignInFailedHandler), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new ImageCodeFilter(symSecurityProperties,symSignInFailedHandler), UsernamePasswordAuthenticationFilter.class)
                 //获取表单登录组件
                 .formLogin()
@@ -86,14 +100,16 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()//停止CSRF校验
                 //获取授权组件
                 .authorizeRequests()
-                    .antMatchers("/signIn","/loginHandler","/getImage","/failedAfterLogin",symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()//登录页不用校验
+                    .antMatchers("/signIn","/loginHandler","/getImage","/getSmsCode","/failedAfterLogin",symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()//登录页不用校验
                     .anyRequest().authenticated()//其它页面需要校验
                     .and()//切换到HttpSecurity组件
                 //获取《记住我》组件，相对应的拦截器为 RememberMeAuthenticationFilter
                 .rememberMe()
                     .userDetailsService(symDetailsService) //记住我组件会封装用户的认证权限信息，所以需要一个userDetailsService
                     .tokenValiditySeconds(1*60*60)//设置cookie的有效期
-                    .tokenRepository(PersistentTokenRepository());//设置操作数据库的工具库
+                    .tokenRepository(PersistentTokenRepository())//设置操作数据库的工具库
+                .and()
+                .apply(smsCodeSecurityConfigurerAdapter);
     }
 
     /**

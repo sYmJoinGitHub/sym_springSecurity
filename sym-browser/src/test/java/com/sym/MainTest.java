@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by 沈燕明 on 2019/6/19.
  */
-@SpringBootTest
+@SpringBootTest(classes = BrowserApplication.class)
 @RunWith(SpringRunner.class)
 public class MainTest {
 
