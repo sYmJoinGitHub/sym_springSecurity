@@ -1,9 +1,8 @@
 package com.sym.config;
 
-import com.sym.entity.SymSecurityProperties;
-import com.sym.filter.ImageCodeFilter;
-import com.sym.filter.SmsCodeFilter;
-import com.sym.sms.SmsAuthenticationProvider;
+import com.sym.entity.prop.SymSecurityProperties;
+import com.sym.sms.SmsCodeSecurityConfig;
+import com.sym.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -26,40 +24,50 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableConfigurationProperties(SymSecurityProperties.class) //让自定义的配置属性类生效
-public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
+class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*
+    /**
      * 自定义登录成功后的处理类
      */
     @Autowired
     private SymSignInSuccessHandler symSignInSuccessHandler;
 
-    /*
+    /**
      * 自定义登录失败后的处理类
      */
     @Autowired
     private SymSignInFailedHandler symSignInFailedHandler;
 
-    /*
+    /**
      * 映射application.yml的配置属性类，提供多样的选择
      */
     @Autowired
     private SymSecurityProperties symSecurityProperties;
 
-    /*
+    /**
      * 自定义的认证逻辑
      */
     @Autowired
     private SymDetailsService symDetailsService;
 
+    /**
+     * 数据源
+     */
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * 短信登录的配置类
+     */
     @Autowired
-    private SmsAuthenticationProvider smsAuthenticationProvider;
+    private SmsCodeSecurityConfig smsCodeSecurityConfig;
 
+    /**
+     * 验证码的配置类
+     */
     @Autowired
-    private SmsCodeSecurityConfigurerAdapter smsCodeSecurityConfigurerAdapter;
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
 
     /**
      * springSecurity的配置全在这个方法的参数HttpSecurity，通过它来配置认证、授权的方方面面
@@ -75,41 +83,44 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
          * 后面的代码就是基于表单验证组件做配置；当配置完表单登录组件后，想配置其它
          * 组件，就可以通过and()继续获取HttpSecurity对象，调用它其它方法获取其它组件
          */
-
-
-
-        httpSecurity.authenticationProvider(smsAuthenticationProvider);
-
         httpSecurity
                 //添加将自定义的过滤器放在指定过滤器前面
-                .addFilterBefore(new SmsCodeFilter(symSecurityProperties,symSignInFailedHandler), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new ImageCodeFilter(symSecurityProperties,symSignInFailedHandler), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(new SmsCodeFilter(symSecurityProperties,symSignInFailedHandler), UsernamePasswordAuthenticationFilter.class)
                 //获取表单登录组件
                 .formLogin()
                     //.loginPage("/signIn.html")//指定登陆页面，当springSecurity发现一个请求未认证时,就会将请求转发到这里
                     .loginPage("/loginHandler")//也可以将登录页面改为请求一个Controller的映射，其实建议这样做，这样可以区分不同请求，返回不同的内容
                     .usernameParameter("customerName")//指定登录请求的用户名，默认为username
                     .passwordParameter("customerPwd")//指定登录请求的密码，默认为password
-                    //.successForwardUrl("/succeedAfterLogin")//登录成功后的跳转地址，默认为用户之前请求的地址
+                    //.successForwardUrl("/succeedAfterLogin")//登录成功后的跳转地址，默认为用户之前请求的地址，
                     //.failureForwardUrl("/failedAfterLogin")//登录失败后的跳转地址，默认会抛出异常。当我们指定登陆失败的跳转地址，一定要将它放行不再认证
                     .successHandler(symSignInSuccessHandler)//自定义登录成功后的处理方式
                     .failureHandler(symSignInFailedHandler)//自定义登录失败后的处理方式
-                    .loginProcessingUrl("/signIn")//指定校验的url，前端登录把请求提交到此url即可
+                    .loginProcessingUrl("/loginIn")//指定校验的url，前端登录把请求提交到此url即可
                     .and()//切换到HttpSecurity组件
                 .csrf()
                     .disable()//停止CSRF校验
                 //获取授权组件
                 .authorizeRequests()
-                    .antMatchers("/signIn","/loginHandler","/getImage","/getSmsCode","/failedAfterLogin",symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()//登录页不用校验
+                    // 不需要认证的地址的地址
+                    .antMatchers("/loginHandler","/validate/getCode/**",
+                            //symSecurityProperties.getCode().getImageFilterUrl(),//这边应该弄成数组循环加入的，这边就简单只有一个url加入了
+                            //symSecurityProperties.getCode().getSmsFilterUrl(),//这边应该弄成数组循环加入的，这边就简单只有一个url加入了
+                            symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()
                     .anyRequest().authenticated()//其它页面需要校验
                     .and()//切换到HttpSecurity组件
                 //获取《记住我》组件，相对应的拦截器为 RememberMeAuthenticationFilter
                 .rememberMe()
-                    .userDetailsService(symDetailsService) //记住我组件会封装用户的认证权限信息，所以需要一个userDetailsService
-                    .tokenValiditySeconds(1*60*60)//设置cookie的有效期
-                    .tokenRepository(PersistentTokenRepository())//设置操作数据库的工具库
+                .userDetailsService(symDetailsService) //记住我组件会封装用户的认证权限信息，所以需要一个userDetailsService
+                .tokenValiditySeconds(60*60)//设置cookie的有效期,单位秒s
+                .tokenRepository(PersistentTokenRepository())//设置操作数据库的工具库
                 .and()
-                .apply(smsCodeSecurityConfigurerAdapter);
+                // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合短信登录配置类
+                .apply(smsCodeSecurityConfig)
+                .and()
+                // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合验证码配置类
+                .apply(validateCodeSecurityConfig);
+
     }
 
     /**
@@ -140,3 +151,4 @@ public class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return repository;
     }
 }
+

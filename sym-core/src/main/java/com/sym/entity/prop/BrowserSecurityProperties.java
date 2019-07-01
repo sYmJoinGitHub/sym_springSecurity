@@ -1,4 +1,4 @@
-package com.sym.entity;
+package com.sym.entity.prop;
 
 import lombok.Data;
 import lombok.ToString;

@@ -9,7 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**
- * 不要把
+ * 实际上对于账户信息的认证，springSecurity都是交给 AuthenticationProvider实现类来完成的
+ * 默认的表单登录使用的是 DaoAuthenticationProvider。
+ * 这里我们自定义实现短信登录的 AuthenticationProvider实现类
  *
  * Created by 沈燕明 on 2019/6/23.
  */
