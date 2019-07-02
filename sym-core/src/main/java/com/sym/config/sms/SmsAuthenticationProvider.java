@@ -1,32 +1,35 @@
-package com.sym.sms;
+package com.sym.config.sms;
 
-import com.sym.config.SymDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * 实际上对于账户信息的认证，springSecurity都是交给 AuthenticationProvider实现类来完成的
+ * 实际上对于账户信息的认证，springSecurity都是交给 AuthenticationProvider 实现类来完成的
  * 默认的表单登录使用的是 DaoAuthenticationProvider。
  * 这里我们自定义实现短信登录的 AuthenticationProvider实现类
  *
+ * 注意：当我们自定义实现 AuthenticationProvider 接口，绝对不能使用@Compent注解将其注入到IOC容器
+ *      查看源码 InitializeUserDetailsBeanManagerConfigurer的58行，当发现已经配置了authenticationProviders后
+ *      springSecurity就不会自动配置DaoAuthenticationProvider，这会导致表单登录失败，报错为：
+ *      No AuthenticationProvider found for org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+ *
  * Created by 沈燕明 on 2019/6/23.
  */
-@Component
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    private SymDetailsService symDetailsService;
+    @Setter
+    private UserDetailsService userDetailsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         SmsCodeAuthenticationToken token = (SmsCodeAuthenticationToken)authentication;
         String mobile = String.valueOf( token.getPrincipal() );//获取手机号
         // 通过手机号去寻找用户的信息
-        UserDetails userDetails = symDetailsService.loadUserByUsername(mobile);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(mobile);
         return userDetails == null?null:new SmsCodeAuthenticationToken(userDetails,userDetails.getAuthorities());
     }
 

@@ -1,4 +1,4 @@
-package com.sym.sms;
+package com.sym.config.sms;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;

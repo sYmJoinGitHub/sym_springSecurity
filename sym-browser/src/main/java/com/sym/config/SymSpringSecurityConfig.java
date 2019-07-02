@@ -1,7 +1,7 @@
 package com.sym.config;
 
 import com.sym.entity.prop.SymSecurityProperties;
-import com.sym.sms.SmsCodeSecurityConfig;
+import com.sym.config.sms.SmsCodeSecurityConfig;
 import com.sym.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
