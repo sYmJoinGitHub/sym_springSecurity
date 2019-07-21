@@ -1,6 +1,6 @@
 package com.sym.validate;
 
-import com.sym.entity.prop.SymSecurityProperties;
+import com.sym.entity.SymSecurityProperties;
 import com.sym.validate.image.DefaultImageValidateCodeGenerator;
 import com.sym.validate.sms.DefaultSmsValidateCodeSender;
 import com.sym.validate.sms.SmsValidateCodeSender;

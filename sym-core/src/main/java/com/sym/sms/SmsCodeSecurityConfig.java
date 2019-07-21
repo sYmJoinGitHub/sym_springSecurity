@@ -1,4 +1,4 @@
-package com.sym.config.sms;
+package com.sym.sms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

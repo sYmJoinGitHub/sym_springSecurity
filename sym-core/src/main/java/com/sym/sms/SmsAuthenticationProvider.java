@@ -1,4 +1,4 @@
-package com.sym.config.sms;
+package com.sym.sms;
 
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;

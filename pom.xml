@@ -16,7 +16,6 @@
         <module>sym-core</module>
         <module>sym-app</module>
         <module>sym-browser</module>
-        <module>sym-demo</module>
     </modules>
 
 	<properties>

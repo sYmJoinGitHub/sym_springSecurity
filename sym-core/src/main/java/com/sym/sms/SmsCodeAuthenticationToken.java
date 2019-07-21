@@ -1,4 +1,4 @@
-package com.sym.config.sms;
+package com.sym.sms;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,6 +1,6 @@
 package com.sym.validate.image;
 
-import com.sym.entity.prop.SymSecurityProperties;
+import com.sym.entity.SymSecurityProperties;
 import com.sym.validate.ValidateCode;
 import com.sym.validate.ValidateCodeGenerator;
 import lombok.Data;

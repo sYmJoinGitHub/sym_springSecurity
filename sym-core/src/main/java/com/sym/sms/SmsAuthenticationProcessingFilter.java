@@ -1,4 +1,4 @@
-package com.sym.config.sms;
+package com.sym.sms;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -46,7 +46,7 @@ public class SmsAuthenticationProcessingFilter  extends AbstractAuthenticationPr
             throw new AuthenticationServiceException(
                     "Authentication method not supported: " + request.getMethod());
         }
-
+//
         String mobile = obtainMobile(request);
 
         if (mobile == null) {

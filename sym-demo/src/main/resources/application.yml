@@ -1,9 +1,0 @@
-server:
-  port: 6565
-spring:
-  thymeleaf:
-    prefix: classpath:/page/
-    suffix: .html
-security:
-  basic:
-    enabled: false #关闭springSecurity

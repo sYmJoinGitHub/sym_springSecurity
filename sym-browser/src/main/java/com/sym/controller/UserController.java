@@ -2,7 +2,7 @@ package com.sym.controller;
 
 import com.sym.entity.ResultInfo;
 import com.sym.entity.UserDto;
-import com.sym.entity.prop.SymSecurityProperties;
+import com.sym.entity.SymSecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

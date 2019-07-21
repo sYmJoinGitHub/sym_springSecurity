@@ -1,13 +1,12 @@
 package com.sym.validate;
 
-import com.sym.entity.prop.SymSecurityProperties;
+import com.sym.entity.SymSecurityProperties;
 import com.sym.exception.BaseException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;

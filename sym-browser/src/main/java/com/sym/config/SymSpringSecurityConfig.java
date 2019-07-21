@@ -1,7 +1,7 @@
 package com.sym.config;
 
-import com.sym.entity.prop.SymSecurityProperties;
-import com.sym.config.sms.SmsCodeSecurityConfig;
+import com.sym.sms.SmsCodeSecurityConfig;
+import com.sym.entity.SymSecurityProperties;
 import com.sym.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -68,6 +69,12 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    /**
+     * 第三方登录的配置类
+     */
+    @Autowired
+    private SpringSocialConfigurer springSocialConfigurer;
+
 
     /**
      * springSecurity的配置全在这个方法的参数HttpSecurity，通过它来配置认证、授权的方方面面
@@ -119,7 +126,9 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(smsCodeSecurityConfig)
                 .and()
                 // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合验证码配置类
-                .apply(validateCodeSecurityConfig);
+                .apply(validateCodeSecurityConfig)
+                .and()
+                .apply(springSocialConfigurer);
 
     }
 
