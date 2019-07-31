@@ -12,4 +12,5 @@ import lombok.ToString;
 @ToString
 public class BrowserSecurityProperties {
     private String signInHtmlPath = "/signIn.html";//默认的登录页面
+    private String invalidSessionUrl = "/invalidSession.html";
 }

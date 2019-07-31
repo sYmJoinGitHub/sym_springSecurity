@@ -17,13 +17,13 @@ public class QQSocialSecurityProperties {
     /**
      * QQ开发平台分配给APP的客户端ID（需要申请）
      */
-    private String clientId;
+    private String clientId = "";
     /**
      * QQ开发平台分配给APP的秘钥ID（需要申请）
      */
-    private String clientSecret;
+    private String clientSecret = "";
     /**
      * spring social对第三方登录的处理器做了统一处理，以providerId做区分（自己配置）
      */
-    private String providerId;
+    private String providerId = "";
 }

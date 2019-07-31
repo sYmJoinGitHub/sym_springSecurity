@@ -1,7 +1,7 @@
 package com.sym.config;
 
-import com.sym.sms.SmsCodeSecurityConfig;
 import com.sym.entity.SymSecurityProperties;
+import com.sym.sms.SmsCodeSecurityConfig;
 import com.sym.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -110,24 +110,30 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //获取授权组件
                 .authorizeRequests()
                     // 不需要认证的地址的地址
-                    .antMatchers("/loginHandler","/validate/getCode/**",
-                            //symSecurityProperties.getCode().getImageFilterUrl(),//这边应该弄成数组循环加入的，这边就简单只有一个url加入了
-                            //symSecurityProperties.getCode().getSmsFilterUrl(),//这边应该弄成数组循环加入的，这边就简单只有一个url加入了
-                            symSecurityProperties.getBrowser().getSignInHtmlPath()).permitAll()
+                    .antMatchers("/loginHandler","/validate/getCode/**","/invalid/session",
+                        symSecurityProperties.getBrowser().getSignInHtmlPath(),
+                        symSecurityProperties.getBrowser().getInvalidSessionUrl()).permitAll()
                     .anyRequest().authenticated()//其它页面需要校验
                     .and()//切换到HttpSecurity组件
                 //获取《记住我》组件，相对应的拦截器为 RememberMeAuthenticationFilter
                 .rememberMe()
-                .userDetailsService(symDetailsService) //记住我组件会封装用户的认证权限信息，所以需要一个userDetailsService
-                .tokenValiditySeconds(60*60)//设置cookie的有效期,单位秒s
-                .tokenRepository(PersistentTokenRepository())//设置操作数据库的工具库
-                .and()
+                    .userDetailsService(symDetailsService) //记住我组件会封装用户的认证权限信息，所以需要一个userDetailsService
+                    .tokenValiditySeconds(60*60)//设置cookie的有效期,单位秒s
+                    .tokenRepository(PersistentTokenRepository())//设置操作数据库的工具库
+                    .and()
+                // 获取会话管理组件
+                .sessionManagement()
+                    .maximumSessions(1).and()//表示最大只允许同一个用户在同一时间内登录
+                    .enableSessionUrlRewriting(true)
+                    .invalidSessionUrl("/invalid/session")//session过期时，会将请求转发到此接口上
+                    .and()
                 // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合短信登录配置类
                 .apply(smsCodeSecurityConfig)
-                .and()
+                    .and()
                 // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合验证码配置类
                 .apply(validateCodeSecurityConfig)
-                .and()
+                    .and()
+                // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合第三方配置类
                 .apply(springSocialConfigurer);
 
     }

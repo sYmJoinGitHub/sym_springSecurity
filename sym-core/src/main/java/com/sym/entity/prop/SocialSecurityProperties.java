@@ -13,5 +13,5 @@ import lombok.ToString;
 public class SocialSecurityProperties {
 
     // 第三方登录 for qq
-    private QQSocialSecurityProperties qq;
+    private QQSocialSecurityProperties qq = new QQSocialSecurityProperties();
 }

@@ -16,6 +16,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -86,6 +87,26 @@ public class UserController {
         }
         // 其它情况返回JSON字符串
         return ResultInfo.failed("请先登录~！");
+    }
+
+
+    /**
+     * 当session过期时（许久未操作），springSecurity会将请求转发到这个接口上
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/invalid/session")
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public ResultInfo invalidSession(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        logger.info("session已过期,引导用户重新登录");
+        String header = request.getHeader("accept");
+        if(!StringUtils.isEmpty(header) && header.contains("html")){
+            redirectStrategy.sendRedirect(request,response,symSecurityProperties.getBrowser().getInvalidSessionUrl());
+        }
+        // 其它情况返回JSON字符串
+        return ResultInfo.failed("会话过期,请先登录~！");
     }
 
     /**
