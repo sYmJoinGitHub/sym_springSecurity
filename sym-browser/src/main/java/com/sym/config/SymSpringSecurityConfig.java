@@ -1,6 +1,7 @@
 package com.sym.config;
 
 import com.sym.entity.SymSecurityProperties;
+import com.sym.session.SymSessionExpiredStrategy;
 import com.sym.sms.SmsCodeSecurityConfig;
 import com.sym.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,9 +124,11 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 // 获取会话管理组件
                 .sessionManagement()
-                    .maximumSessions(1).and()//表示最大只允许同一个用户在同一时间内登录
-                    .enableSessionUrlRewriting(true)
-                    .invalidSessionUrl("/invalid/session")//session过期时，会将请求转发到此接口上
+                    .invalidSessionUrl("/invalid/session")//当springSecurity检测到无效非法(未登录)的会话session时,就会将请求重定向到此url上
+                    .maximumSessions(1)//表示最大只允许同一个用户在同一时间内登录
+                    .maxSessionsPreventsLogin(true)//表示当同一个用户同时登录的个数达到最大值时，拒绝此用户后面的登录
+                    .expiredSessionStrategy(new SymSessionExpiredStrategy())//配置当session过期时的处理策略
+                    .and()
                     .and()
                 // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合短信登录配置类
                 .apply(smsCodeSecurityConfig)
