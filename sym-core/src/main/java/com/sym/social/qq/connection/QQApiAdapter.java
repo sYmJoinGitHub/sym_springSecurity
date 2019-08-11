@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 /**
  * 接口ApiAdapter是用来对第三方返回的信息和我们自己业务系统的用户信息做一些映射转换用的。
  * 是创建ConnectionFactory的必要组件之一
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/21.
  */
 public class QQApiAdapter implements ApiAdapter<QQ> {

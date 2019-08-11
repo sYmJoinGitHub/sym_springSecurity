@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 处理验证码请求的Controller
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/29.
  */
 @RestController
@@ -21,7 +21,7 @@ public class ValidateController {
 
     @GetMapping("/getCode/{type}")
     public void getCode(@PathVariable("type") String type, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ServletWebRequest webRequest = new ServletWebRequest(request,response);
+        ServletWebRequest webRequest = new ServletWebRequest(request, response);
         validateCodeProcessorHolder.findValidateCodeProcessor(type).create(webRequest);
     }
 

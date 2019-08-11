@@ -18,9 +18,9 @@ public class MainTest {
 
     @Autowired
     private SymSecurityProperties symSecurityProperties;
-    
+
     @Test
-    public void test(){
+    public void test() {
         System.out.println(symSecurityProperties);
     }
 

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * 我们需要自己实现此接口，并将其实现类注入到IOC容器中，然后用户登录
  * 时，springSecurity会调用此方法，将用户名username传递过来，让我们
  * 根据用户名去查询用户的信息
- *
+ * <p>
  * Created by 沈燕明 on 2019/5/29.
  */
 @Component
@@ -40,7 +40,7 @@ public class SymDetailsService implements UserDetailsService, SocialUserDetailsS
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("表单登录：用户输入的username={}",username);
+        logger.info("表单登录：用户输入的username={}", username);
 
         // 这里我们就可以通过username去查询数据库获取用户的信息
         // ...省略读取数据库的步骤
@@ -53,23 +53,22 @@ public class SymDetailsService implements UserDetailsService, SocialUserDetailsS
 
     /**
      * 第三方登录：
-     *  通过
+     * 通过
+     *
      * @param userId
      * @return
      * @throws UsernameNotFoundException
      */
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        logger.info("第三方登录：userId={}",userId);
+        logger.info("第三方登录：userId={}", userId);
         return userDetailsBuild(userId);
     }
 
 
-    private SocialUserDetails userDetailsBuild(String key){
+    private SocialUserDetails userDetailsBuild(String key) {
         String encodePassword = passwordEncoder.encode("123456");
-        logger.info("加密后的密码={}",encodePassword);
-        return new SocialUser(key,encodePassword,true,
-                true,true,true,
-                AuthorityUtils.NO_AUTHORITIES);
+        logger.info("加密后的密码={}", encodePassword);
+        return new SocialUser(key, encodePassword, true, true, true, true, AuthorityUtils.NO_AUTHORITIES);
     }
 }

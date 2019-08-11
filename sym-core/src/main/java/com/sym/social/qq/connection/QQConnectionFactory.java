@@ -7,17 +7,16 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 
 /**
  * QQ连接工厂
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/21.
  */
 public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ> {
 
 
     /**
-     *
      * @param qqProp
      */
     public QQConnectionFactory(QQSocialSecurityProperties qqProp) {
-        super(qqProp.getProviderId(), new QQServiceProvider(qqProp.getClientId(),qqProp.getClientSecret()), new QQApiAdapter());
+        super(qqProp.getProviderId(), new QQServiceProvider(qqProp.getClientId(), qqProp.getClientSecret()), new QQApiAdapter());
     }
 }

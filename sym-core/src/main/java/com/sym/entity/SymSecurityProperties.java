@@ -21,5 +21,5 @@ public class SymSecurityProperties {
 
     private ValidateCodeProperties code = new ValidateCodeProperties();//如果用户没配置，默认就是这个，否则用户的配置会覆盖掉此实例
 
-   private SocialSecurityProperties social = new SocialSecurityProperties();//如果用户没配置，默认就是这个，否则用户的配置会覆盖掉此实例
+    private SocialSecurityProperties social = new SocialSecurityProperties();//如果用户没配置，默认就是这个，否则用户的配置会覆盖掉此实例
 }

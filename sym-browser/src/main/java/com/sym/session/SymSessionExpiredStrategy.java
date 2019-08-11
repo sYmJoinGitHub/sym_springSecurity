@@ -26,8 +26,8 @@ public class SymSessionExpiredStrategy implements SessionInformationExpiredStrat
         Object source = event.getSource();
         long timestamp = event.getTimestamp();
 
-        LOGGER.info("source={}",source);
-        LOGGER.info("sessionInformation={}",sessionInformation);
+        LOGGER.info("source={}", source);
+        LOGGER.info("sessionInformation={}", sessionInformation);
         sessionInformation.expireNow();
 
         response.setContentType("text/html;charset=UTF-8");

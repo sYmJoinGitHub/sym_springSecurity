@@ -17,7 +17,7 @@ import java.util.UUID;
 
 /**
  * 短信登录的配置类，需要配置2个组件：一是token，二是生成token的Filter
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/23.
  */
 @Configuration("smsCodeSecurityConfig")
@@ -47,8 +47,7 @@ public class SmsCodeSecurityConfig extends SecurityConfigurerAdapter<DefaultSecu
         smsAuthenticationProcessingFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         smsAuthenticationProcessingFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         String key = UUID.randomUUID().toString();
-        smsAuthenticationProcessingFilter.setRememberMeServices(
-                new PersistentTokenBasedRememberMeServices(key,userDetailsService,persistentTokenRepository));
+        smsAuthenticationProcessingFilter.setRememberMeServices(new PersistentTokenBasedRememberMeServices(key, userDetailsService, persistentTokenRepository));
 
         // 初始化自定义的短信校验Provider
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();

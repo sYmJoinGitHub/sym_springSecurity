@@ -124,7 +124,7 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 // 获取会话管理组件
                 .sessionManagement()
-                    .invalidSessionUrl("/invalid/session")//当springSecurity检测到无效非法(未登录)的会话session时,就会将请求重定向到此url上
+                    .invalidSessionUrl("/invalid/session")//session非法的跳转地址，所谓session非法就是：Servlet容器没有这个Session
                     .maximumSessions(1)//表示最大只允许同一个用户在同一时间内登录
                     .maxSessionsPreventsLogin(true)//表示当同一个用户同时登录的个数达到最大值时，拒绝此用户后面的登录
                     .expiredSessionStrategy(new SymSessionExpiredStrategy())//配置当session过期时的处理策略
@@ -137,7 +137,8 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(validateCodeSecurityConfig)
                     .and()
                 // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合第三方配置类
-                .apply(springSocialConfigurer);
+                .apply(springSocialConfigurer)
+                    .and();
 
     }
 

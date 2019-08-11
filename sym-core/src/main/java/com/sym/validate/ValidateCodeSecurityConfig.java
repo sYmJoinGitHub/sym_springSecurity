@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 验证码配置类
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/29.
  */
 @Component("validateCodeSecurityConfig")

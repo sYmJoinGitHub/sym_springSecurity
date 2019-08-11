@@ -33,6 +33,7 @@ public class ValidateBeanConfig {
 
     /**
      * 短信验证码发送器
+     *
      * @return
      */
     @Bean
@@ -43,11 +44,12 @@ public class ValidateBeanConfig {
 
     /**
      * 验证码存取器
+     *
      * @return
      */
     @Bean
     @ConditionalOnMissingBean(ValidateCodeRepository.class)
-    public ValidateCodeRepository validateCodeReposity(){
+    public ValidateCodeRepository validateCodeReposity() {
         return new DefaultValidateCodeRepository();
     }
 

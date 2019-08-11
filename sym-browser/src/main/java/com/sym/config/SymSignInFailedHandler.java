@@ -45,13 +45,12 @@ public class SymSignInFailedHandler implements AuthenticationFailureHandler {
      * @throws ServletException
      */
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         LOGGER.info("用户：{}，登录失败的原因：{}", request.getParameter("customerName"), exception.getMessage());
         // 处理登录失败的请求
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=utf-8");
         //这边直接把springSecurity封装异常信息对象返回回去
-        response.getWriter().println(objectMapper.writeValueAsString("登陆失败原因："+exception.getMessage()));
+        response.getWriter().println(objectMapper.writeValueAsString("登陆失败原因：" + exception.getMessage()));
     }
 }

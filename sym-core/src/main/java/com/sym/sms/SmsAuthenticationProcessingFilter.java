@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 短信登录的拦截器，由它来生成短信验证的token，实现登录
  * 注意要和短信登录验证码拦截器 @link{ValidateCodeFilter} 的区别，后者是来判断短信验证码是否存在以及是否正确的
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/22.
  */
-public class SmsAuthenticationProcessingFilter  extends AbstractAuthenticationProcessingFilter {
+public class SmsAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
 
     public static final String SMS_CODE_KEY = "mobile";
@@ -35,16 +35,15 @@ public class SmsAuthenticationProcessingFilter  extends AbstractAuthenticationPr
 
     /**
      * 尝试获取一个短信登录的Token
+     *
      * @param request
      * @param response
      * @return
      * @throws AuthenticationException
      */
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (postOnly && !request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
+            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
 //
         String mobile = obtainMobile(request);
@@ -62,8 +61,6 @@ public class SmsAuthenticationProcessingFilter  extends AbstractAuthenticationPr
 
         return this.getAuthenticationManager().authenticate(token);
     }
-
-
 
 
     private String obtainMobile(HttpServletRequest request) {

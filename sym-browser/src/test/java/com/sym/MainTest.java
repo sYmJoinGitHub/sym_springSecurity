@@ -22,7 +22,7 @@ public class MainTest {
     private DataSource dataSource;
 
     @Test
-    public void testOne(){
+    public void testOne() {
         System.out.println(dataSource);
         JdbcTemplate t = new JdbcTemplate(dataSource);
         List<Map<String, Object>> maps = t.queryForList("select * from t_student");

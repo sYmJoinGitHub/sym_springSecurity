@@ -14,10 +14,10 @@ import java.nio.charset.Charset;
 /**
  * OAuth2Template是spring social提供的对OAuth2Operations的默认实现类。
  * OAuth2协议申请令牌就是用这个类完成的。
- *
+ * <p>
  * 不过OAuth2Template实现类有几处地方不太适合第三方QQ登录，所以我们继承它，覆盖掉相应的方法
  * 来满足QQ登录的需求
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/21.
  */
 public class QQOAuth2Template extends OAuth2Template {
@@ -40,6 +40,7 @@ public class QQOAuth2Template extends OAuth2Template {
     /**
      * spring social 默认的RestTemplate没有加上对返回信息格式为text/html的处理。而恰好QQ就是以这种格式返回的
      * 所以这里我们在获取到父类创建好的RestTemplate后，自己手动加上。这边可以体会到继承的好处
+     *
      * @return
      */
     @Override
@@ -63,13 +64,13 @@ public class QQOAuth2Template extends OAuth2Template {
     @Override
     protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
         String result = getRestTemplate().postForObject(accessTokenUrl, parameters, String.class);
-        LOGGER.info("QQ申请令牌信息为,[{}]",result);
-        if(!StringUtils.isEmpty( result )){
+        LOGGER.info("QQ申请令牌信息为,[{}]", result);
+        if (!StringUtils.isEmpty(result)) {
             String[] data = result.split("&");
-            String accessToken = StringUtils.substringAfterLast(data[0],"=");
-            Long expireIn = Long.valueOf(StringUtils.substringAfterLast(data[1],"="));
-            String refreshToken = StringUtils.substringAfterLast(data[2],"=");
-            return new AccessGrant(accessToken,null,refreshToken,expireIn);
+            String accessToken = StringUtils.substringAfterLast(data[0], "=");
+            Long expireIn = Long.valueOf(StringUtils.substringAfterLast(data[1], "="));
+            String refreshToken = StringUtils.substringAfterLast(data[2], "=");
+            return new AccessGrant(accessToken, null, refreshToken, expireIn);
         }
         return null;
     }

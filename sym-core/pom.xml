@@ -19,31 +19,31 @@
     <dependencies>
 
         <!-- spring-oauth2依赖 -->
-		<dependency>
+        <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-oauth2</artifactId>
 		</dependency>
 
-		<!-- springBoot集成redis -->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
-		<!--</dependency>-->
+        <!-- springBoot集成redis -->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
 
-		<!-- springBoot集成jdbc -->
-		<dependency>
+        <!-- springBoot集成jdbc -->
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
-		<!-- mysql驱动包 -->
-		<dependency>
+        <!-- mysql驱动包 -->
+        <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
-		<!-- spring-social相关依赖 -->
-		<dependency>
+        <!-- spring-social相关依赖 -->
+        <dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-config</artifactId>
 		</dependency>
@@ -60,8 +60,8 @@
 			<artifactId>spring-social-web</artifactId>
 		</dependency>
 
-		<!-- apache工具类 -->
-		<dependency>
+        <!-- apache工具类 -->
+        <dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
@@ -74,8 +74,8 @@
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
 
-		<!-- springBoot配置文件相关依赖 -->
-		<dependency>
+        <!-- springBoot配置文件相关依赖 -->
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
@@ -86,8 +86,8 @@
 		</dependency>
 
 
-		<!-- lombok -->
-		<dependency>
+        <!-- lombok -->
+        <dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.6</version>

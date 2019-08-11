@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * 封装腾讯QQ返回的用户信息，{@link }
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/21.
  */
 @Data

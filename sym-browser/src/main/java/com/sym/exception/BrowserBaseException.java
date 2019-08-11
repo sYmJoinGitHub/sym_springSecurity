@@ -2,7 +2,7 @@ package com.sym.exception;
 
 /**
  * 浏览器异常基础类
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/13 17:32.
  */
 public class BrowserBaseException extends BaseException {

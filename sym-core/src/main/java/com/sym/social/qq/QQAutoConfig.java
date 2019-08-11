@@ -10,7 +10,7 @@ import org.springframework.social.connect.ConnectionFactory;
 
 /**
  * QQ的配置类，需要实现 SocialAutoConfigurerAdapter 抽象类，返回一个连接工厂
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/21.
  */
 @Configuration

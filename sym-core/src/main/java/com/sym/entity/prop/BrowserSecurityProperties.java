@@ -5,7 +5,7 @@ import lombok.ToString;
 
 /**
  * 浏览器配置属性类
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/3 17:21.
  */
 @Data

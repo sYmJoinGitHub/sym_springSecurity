@@ -13,7 +13,7 @@ import java.util.Random;
 
 /**
  * 默认的图片验证码生成类
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/29.
  */
 @Data
@@ -24,8 +24,8 @@ public class DefaultImageValidateCodeGenerator implements ValidateCodeGenerator 
     @Override
     public ValidateCode createValidateCode(ServletWebRequest request) {
         // 前端传过来的图片参数优先级最高，用户配置的其次，默认配置的最低
-        int width = ServletRequestUtils.getIntParameter(request.getRequest(),"width",symSecurityProperties.getCode().getImageWidth());
-        int height = ServletRequestUtils.getIntParameter(request.getRequest(),"height",symSecurityProperties.getCode().getImageHeight());
+        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", symSecurityProperties.getCode().getImageWidth());
+        int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height", symSecurityProperties.getCode().getImageHeight());
 
         // 创建画图工具
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -59,7 +59,7 @@ public class DefaultImageValidateCodeGenerator implements ValidateCodeGenerator 
         }
         g.dispose();
 
-        return new ImageValidateCode(sRand,image,symSecurityProperties.getCode().getImageExpireTime());
+        return new ImageValidateCode(sRand, image, symSecurityProperties.getCode().getImageExpireTime());
     }
 
     /**

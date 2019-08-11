@@ -5,13 +5,14 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 验证码存取器
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/29.
  */
 public interface ValidateCodeRepository {
 
     /**
      * 保存验证码
+     *
      * @param code
      * @param type
      * @param request
@@ -20,6 +21,7 @@ public interface ValidateCodeRepository {
 
     /**
      * 获取验证码
+     *
      * @param type
      * @param request
      * @return
@@ -28,6 +30,7 @@ public interface ValidateCodeRepository {
 
     /**
      * 移除验证码
+     *
      * @param type
      * @param request
      */

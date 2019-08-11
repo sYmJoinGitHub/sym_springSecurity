@@ -5,7 +5,7 @@ import org.springframework.security.core.AuthenticationException;
 /**
  * AuthenticationException 是springSecurity的异常超类，
  * 可以实现它来完成自己的异常基类
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/1.
  */
 public class BaseException extends AuthenticationException {
@@ -23,7 +23,7 @@ public class BaseException extends AuthenticationException {
         super(msg);
     }
 
-    public BaseException(int code,String message){
+    public BaseException(int code, String message) {
         this(message);
         this.code = code;
     }

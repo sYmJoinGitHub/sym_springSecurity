@@ -80,7 +80,7 @@ public class UserController {
                 // 带有html字样的说明是浏览器发起的请求
                 if (s.contains("html")) {
                     //response.sendRedirect("/signIn.html");
-                    redirectStrategy.sendRedirect(request,response,symSecurityProperties.getBrowser().getSignInHtmlPath());
+                    redirectStrategy.sendRedirect(request, response, symSecurityProperties.getBrowser().getSignInHtmlPath());
                     return null;
                 }
             }
@@ -92,6 +92,7 @@ public class UserController {
 
     /**
      * 当session过期时（许久未操作），springSecurity会将请求转发到这个接口上
+     *
      * @param request
      * @param response
      * @return
@@ -102,8 +103,8 @@ public class UserController {
     public ResultInfo invalidSession(HttpServletRequest request, HttpServletResponse response) throws Exception {
         logger.info("session已过期,引导用户重新登录");
         String header = request.getHeader("accept");
-        if(!StringUtils.isEmpty(header) && header.contains("html")){
-            redirectStrategy.sendRedirect(request,response,symSecurityProperties.getBrowser().getInvalidSessionUrl());
+        if (!StringUtils.isEmpty(header) && header.contains("html")) {
+            redirectStrategy.sendRedirect(request, response, symSecurityProperties.getBrowser().getInvalidSessionUrl());
         }
         // 其它情况返回JSON字符串
         return ResultInfo.failed("会话过期,请先登录~！");
@@ -141,11 +142,12 @@ public class UserController {
 
     /**
      * 需要先认证的请求
-     *  -- 获取登录用户的认证权限信息
+     * -- 获取登录用户的认证权限信息
+     *
      * @return
      */
     @GetMapping("me")
-    public Authentication getAuthentication(){
+    public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 

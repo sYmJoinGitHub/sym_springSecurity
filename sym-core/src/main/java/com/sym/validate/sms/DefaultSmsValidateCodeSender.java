@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * 默认的短信验证码发送器
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/29.
  */
 @NoArgsConstructor
@@ -26,13 +26,14 @@ public class DefaultSmsValidateCodeSender implements SmsValidateCodeSender {
 
     /**
      * 将短信验证码用response写回到页面上
+     *
      * @param mobile
      * @param code
      */
     @Override
     public void send(String mobile, String code) {
         HttpServletResponse response = threadLocal.get();
-        Assert.notNull(response,"未设置HttpResponse");
+        Assert.notNull(response, "未设置HttpResponse");
         response.setContentType("text/html;charset=utf-8");
         StringBuilder jsBuilder = new StringBuilder();
         jsBuilder.append("<script>");
@@ -40,15 +41,15 @@ public class DefaultSmsValidateCodeSender implements SmsValidateCodeSender {
         jsBuilder.append("</script>");
         try {
             response.getWriter().println(jsBuilder.toString());
-            LOGGER.info("手机号为：{},验证码为：{}",mobile,code);
+            LOGGER.info("手机号为：{},验证码为：{}", mobile, code);
         } catch (IOException e) {
-            LOGGER.info("手机号：{},短信验证码发送失败，原因：{}",mobile,e.getCause());
-        }finally {
+            LOGGER.info("手机号：{},短信验证码发送失败，原因：{}", mobile, e.getCause());
+        } finally {
             threadLocal.remove();
         }
     }
 
-    public void setResponse(HttpServletResponse response){
+    public void setResponse(HttpServletResponse response) {
         threadLocal.set(response);
     }
 }

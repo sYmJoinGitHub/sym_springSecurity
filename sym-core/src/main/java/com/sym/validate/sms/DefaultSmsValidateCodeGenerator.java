@@ -11,7 +11,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 默认的短信验证码生成器
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/29.
  */
 @Data
@@ -24,6 +24,6 @@ public class DefaultSmsValidateCodeGenerator implements ValidateCodeGenerator {
     @Override
     public ValidateCode createValidateCode(ServletWebRequest request) {
         String code = RandomStringUtils.randomNumeric(symSecurityProperties.getCode().getSmsLength());
-        return new ValidateCode(code,symSecurityProperties.getCode().getSmsExpireTime());
+        return new ValidateCode(code, symSecurityProperties.getCode().getSmsExpireTime());
     }
 }

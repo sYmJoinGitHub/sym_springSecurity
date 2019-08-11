@@ -28,15 +28,15 @@
     <dependencyManagement>
 		<dependencies>
 			<!-- Spring IO Platform是spring提供的依赖维护平台 -->
-			<dependency>
+            <dependency>
 				<groupId>io.spring.platform</groupId>
 				<artifactId>platform-bom</artifactId>
 				<version>Brussels-SR4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!--springCloud依赖管理-->
-			<dependency>
+            <!--springCloud依赖管理-->
+            <dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>Dalston.SR2</version>
@@ -46,8 +46,8 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- maven编译插件 -->
-	<build>
+    <!-- maven编译插件 -->
+    <build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

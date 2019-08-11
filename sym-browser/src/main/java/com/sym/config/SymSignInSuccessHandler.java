@@ -19,10 +19,10 @@ import java.io.IOException;
  * 默认springSecurity是用 SavedRequestAwareAuthenticationSuccessHandler 这个类处理的
  * (它的处理方式是直接跳转到用户在登录之前请求的URL地址)
  * 如果我们不想全部定义，也可以继承它，重写onAuthenticationSuccess()方法即可
- *
+ * <p>
  * Created by 沈燕明 on 2019/6/2.
  */
-@Component(value="symSignInSuccessHandler")
+@Component(value = "symSignInSuccessHandler")
 public class SymSignInSuccessHandler implements AuthenticationSuccessHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SymSignInSuccessHandler.class);
@@ -44,13 +44,12 @@ public class SymSignInSuccessHandler implements AuthenticationSuccessHandler {
      * @throws ServletException
      */
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
-        LOGGER.info("name=：",authentication.getName());
-        LOGGER.info("Authorities：",authentication.getAuthorities());
-        LOGGER.info("Credentials：",authentication.getCredentials());
-        LOGGER.info("Details：",authentication.getDetails());//details就是我们从数据库查出来的用户信息
-        LOGGER.info("Principal：",authentication.getPrincipal());
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        LOGGER.info("name=：", authentication.getName());
+        LOGGER.info("Authorities：", authentication.getAuthorities());
+        LOGGER.info("Credentials：", authentication.getCredentials());
+        LOGGER.info("Details：", authentication.getDetails());//details就是我们从数据库查出来的用户信息
+        LOGGER.info("Principal：", authentication.getPrincipal());
 
         // 处理登录成功的请求
         response.setStatus(HttpStatus.OK.value());

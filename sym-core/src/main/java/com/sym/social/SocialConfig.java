@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 /**
  * spring social的配置类
- *
+ * <p>
  * Created by 沈燕明 on 2019/7/20.
  */
 @Configuration
@@ -33,7 +33,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         repository.setTablePrefix("t_qq_");
-        if(connectionSignUp != null) {
+        if (connectionSignUp != null) {
             repository.setConnectionSignUp(connectionSignUp);
         }
         return repository;
@@ -42,10 +42,11 @@ public class SocialConfig extends SocialConfigurerAdapter {
     /**
      * spring自己实现的social配置类，它默认都配置好了，所以我们直接创建即可
      * 如果想修改一些默认配置，继承它然后覆盖相应方法，这是继承的理念，编程思想要懂
+     *
      * @return
      */
     @Bean
-    public SpringSocialConfigurer springSocialConfigurer(){
+    public SpringSocialConfigurer springSocialConfigurer() {
         return new SpringSocialConfigurer();
     }
 }
