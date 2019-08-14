@@ -16,7 +16,9 @@ public class DefaultValidateCodeRepository implements ValidateCodeRepository {
     @Override
     public void save(ValidateCode code, ValidateCodeType type, ServletWebRequest request) {
         HttpSession session = request.getRequest().getSession();
-        session.setAttribute(initKey(type), code);
+        //不要把图片验证码的那个图片保存到session，没意义
+        ValidateCode validateCode = new ValidateCode(code.getCode(),code.getLocalDateTime());
+        session.setAttribute(initKey(type), validateCode);
     }
 
     @Override

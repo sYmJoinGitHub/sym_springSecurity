@@ -3,8 +3,14 @@ spring:
     url: jdbc:mysql://localhost:3306/spring?useUnicode=true&amp;characterEncoding=UTF-8
     username: root
     password: root
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  session:
+    ## 指定spring session的存储介质，就可以使用spring session
+    store-type: redis
 
-
+## 自定义的用来配置验证图片属性
 sym:
   security:
     code:
@@ -15,3 +21,4 @@ sym:
 server:
   session:
     timeout: 60 #springBoot的默认session会话过期最小1分钟，我们在这里可以配置大于1分钟的过期时间，单位为s
+  port: 8087
