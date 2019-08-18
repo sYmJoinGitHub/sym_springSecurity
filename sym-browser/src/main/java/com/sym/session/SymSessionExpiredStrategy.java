@@ -24,7 +24,6 @@ public class SymSessionExpiredStrategy implements SessionInformationExpiredStrat
         HttpServletResponse response = event.getResponse();
         SessionInformation sessionInformation = event.getSessionInformation();//表示Spring Security框架内的会话记录。
         Object source = event.getSource();
-        long timestamp = event.getTimestamp();
 
         LOGGER.info("source={}", source);
         LOGGER.info("sessionInformation={}", sessionInformation);

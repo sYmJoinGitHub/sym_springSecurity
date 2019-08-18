@@ -25,12 +25,14 @@
 		</dependency>
 
         <!-- springBoot集成redis -->
-        <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+		<!-- 在这里是用来做集群管理 -->
+        <!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
 
         <!-- springBoot集成jdbc -->
+		<!-- 在这里是给spring social保存第三方用户信息 与 《记住我》功能使用的 -->
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -84,7 +86,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-
 
         <!-- lombok -->
         <dependency>

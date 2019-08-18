@@ -27,6 +27,8 @@ public class SymSignInSuccessHandler implements AuthenticationSuccessHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SymSignInSuccessHandler.class);
 
+    private int index = 0;
+
     /*
      * springMVC在启动时就会将ObjectMapper注入到IOC容器中
      */
@@ -34,6 +36,8 @@ public class SymSignInSuccessHandler implements AuthenticationSuccessHandler {
     private ObjectMapper objectMapper;
 
     /**
+     *  处理登录成功的请求
+     *
      * 此方法的Authentication参数里面封装用户请求的IP地址，和登录请求参数（用户名，密码被springSecurity清空了）
      * 以及用户的一些权限信息
      *
@@ -51,9 +55,17 @@ public class SymSignInSuccessHandler implements AuthenticationSuccessHandler {
         LOGGER.info("Details：", authentication.getDetails());//details就是我们从数据库查出来的用户信息
         LOGGER.info("Principal：", authentication.getPrincipal());
 
-        // 处理登录成功的请求
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType("application/json;charset=utf-8");
-        response.getWriter().println(objectMapper.writeValueAsString(authentication));//这边直接把springSecurity封装权限信息对象返回回去
+
+        if( index > 100 ) index = 0;
+        if( index%2 != 0 ){
+            // 用JSON格式返回
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().println(objectMapper.writeValueAsString(authentication));//这边直接把springSecurity封装权限信息对象返回回去
+        }else{
+            // 跳转页面
+            response.setContentType("text/html;charset=utf-8");
+            response.sendRedirect("/index.html");
+        }
     }
 }

@@ -25,11 +25,12 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <!-- browser还需要引入spring-session模块，做session管理 -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session</artifactId>
-        </dependency>
+        <!-- browser还需要引入spring-session模块，做集群session管理 -->
+        <!-- 如果要测试session集群管理，打开此依赖 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.session</groupId>-->
+            <!--<artifactId>spring-session</artifactId>-->
+        <!--</dependency>-->
 
         <!--static-->
         <dependency>

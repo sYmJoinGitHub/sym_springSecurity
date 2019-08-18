@@ -41,6 +41,12 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private SymSignInFailedHandler symSignInFailedHandler;
 
     /**
+     * 自定义退出登录成功后的处理类
+     */
+    @Autowired
+    private SymLogoutSuccessHandler symLogoutSuccessHandler;
+
+    /**
      * 映射application.yml的配置属性类，提供多样的选择
      */
     @Autowired
@@ -108,6 +114,15 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()//切换到HttpSecurity组件
                 .csrf()
                     .disable()//停止CSRF校验
+                //获取退出登录组件
+                .logout()
+                    .logoutUrl("/symLogout")//指定前端要执行退出登录的请求地址，默认为/logout
+                    .deleteCookies("JSESSIONID")//指定退出登录成功后要删除的cookie名称
+                    //.logoutSuccessUrl("")//指定退出登录成功后的跳转地址，默认为登录页
+                    .invalidateHttpSession(true)
+                    .logoutSuccessHandler(symLogoutSuccessHandler)//指定退出登录成功后的处理器，它和上面的logoutSuccessUrl只能一个生效，且处理器的优先级高
+                    .clearAuthentication(true)
+                    .and()
                 //获取授权组件
                 .authorizeRequests()
                     // 不需要认证的地址的地址

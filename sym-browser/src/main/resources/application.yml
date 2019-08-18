@@ -21,4 +21,4 @@ sym:
 server:
   session:
     timeout: 60 #springBoot的默认session会话过期最小1分钟，我们在这里可以配置大于1分钟的过期时间，单位为s
-  port: 8087
+  port: 8080
