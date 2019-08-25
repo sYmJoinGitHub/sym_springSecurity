@@ -10,10 +10,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class QQSocialSecurityProperties {
-    //private String appId = "1109674624";
-    //private String appKey = "wUSwFkzisC28fmuh";
-    //private String providerID = "qq";
-
     /**
      * QQ开发平台分配给APP的客户端ID（需要申请）
      */

@@ -1,4 +1,4 @@
-package com.sym.config;
+package com.sym.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

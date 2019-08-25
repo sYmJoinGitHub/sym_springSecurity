@@ -1,4 +1,4 @@
-package com.sym.config;
+package com.sym.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,6 +69,7 @@ public class SymDetailsService implements UserDetailsService, SocialUserDetailsS
     private SocialUserDetails userDetailsBuild(String key) {
         String encodePassword = passwordEncoder.encode("123456");
         logger.info("加密后的密码={}", encodePassword);
-        return new SocialUser(key, encodePassword, true, true, true, true, AuthorityUtils.NO_AUTHORITIES);
+        return new SocialUser(key, encodePassword, true, true,
+                true, true, AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
     }
 }

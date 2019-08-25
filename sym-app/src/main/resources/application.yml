@@ -1,0 +1,12 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: root
+security:
+  oauth2:
+    client:
+      client-id: sym-1995-0731-666
+      client-secret: sym-fantastic
