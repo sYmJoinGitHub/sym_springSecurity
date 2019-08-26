@@ -1,6 +1,5 @@
 package com.sym.validate;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**

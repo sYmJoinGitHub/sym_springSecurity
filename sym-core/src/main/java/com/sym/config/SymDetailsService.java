@@ -1,4 +1,4 @@
-package com.sym.handler;
+package com.sym.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,6 @@
 package com.sym.config;
 
 import com.sym.entity.SymSecurityProperties;
-import com.sym.handler.SymDetailsService;
-import com.sym.handler.SymSignInFailedHandler;
-import com.sym.handler.SymSignInSuccessHandler;
 import com.sym.session.SymSessionExpiredStrategy;
 import com.sym.sms.SmsCodeSecurityConfig;
 import com.sym.validate.ValidateCodeSecurityConfig;
@@ -54,12 +51,6 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     private SymDetailsService symDetailsService;
-
-    /**
-     * 数据源
-     */
-    @Autowired
-    private DataSource dataSource;
 
     /**
      * 《记住我》功能保存token到数据库的工具类

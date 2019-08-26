@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 import java.util.Map;
 
 /**
- * 验证码处理器 @link{ ValidateCodeProcessor } 管理器
+ * 验证码处理器{@link ValidateCodeProcessor} 管理器
  * <p>
  * Created by 沈燕明 on 2019/6/29.
  */

@@ -1,4 +1,4 @@
-package com.sym.config.authorization;
+package com.sym.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;

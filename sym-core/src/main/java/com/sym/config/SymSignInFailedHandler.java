@@ -1,4 +1,4 @@
-package com.sym.handler;
+package com.sym.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ import java.io.IOException;
  * <p>
  * Created by 沈燕明 on 2019/6/2.
  */
-@Component(value = "symSignInFailedHandler")
+@Component
 public class SymSignInFailedHandler implements AuthenticationFailureHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SymSignInFailedHandler.class);

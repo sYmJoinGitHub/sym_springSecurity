@@ -19,7 +19,7 @@ import java.io.IOException;
  *
  * Created by shenYm on 2019/8/18.
  */
-@Component("symLogoutSuccessHandler")
+@Component
 public class SymLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Autowired
@@ -38,7 +38,7 @@ public class SymLogoutSuccessHandler implements LogoutSuccessHandler {
         // 这里可以自定义处理方式
         // 既可以返回JSON，也可以跳转页面....
 
-        LOGGER.info("用户登出,信息为：",authentication);
+        LOGGER.info("用户登出,信息为：{}",authentication);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().print(objectMapper.writeValueAsString(ResultInfo.success("退出登录成功~再会")));
     }
