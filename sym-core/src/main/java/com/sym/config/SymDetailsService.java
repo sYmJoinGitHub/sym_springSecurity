@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
-import org.springframework.stereotype.Component;
 
 /**
  * UserDetailsService是springSecurity提供用来获取用户的信息的接口
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Component;
  * <p>
  * Created by 沈燕明 on 2019/5/29.
  */
-@Component
 public class SymDetailsService implements UserDetailsService, SocialUserDetailsService {
 
     private final static Logger logger = LoggerFactory.getLogger(SymDetailsService.class);

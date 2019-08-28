@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SocialUserDetailsService;
 
 import javax.sql.DataSource;
 
@@ -55,5 +56,45 @@ public class CoreConfig {
         JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
         repository.setDataSource(dataSource);
         return repository;
+    }
+
+
+    /**
+     * 实现{@link UserDetailsService}和{@link SocialUserDetailsService}的用户认证逻辑
+     * @return
+     */
+    @Bean
+    public SymDetailsService symDetailsService(){
+        return new SymDetailsService();
+    }
+
+
+    /**
+     * 成功登录后的处理器
+     * @return
+     */
+    @Bean
+    public AuthenticationSuccessHandler SymSignInSuccessHandler(){
+        return new SymSignInSuccessHandler();
+    }
+
+
+    /**
+     * 登录失败后的处理器
+     * @return
+     */
+    @Bean
+    public AuthenticationFailureHandler SymSignInFailedHandler(){
+        return new SymSignInFailedHandler();
+    }
+
+
+    /**
+     * 登出成功后的处理器
+     * @return
+     */
+    @Bean
+    public LogoutSuccessHandler SymLogoutSuccessHandler(){
+        return new SymLogoutSuccessHandler();
     }
 }

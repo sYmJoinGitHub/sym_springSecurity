@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,6 @@ import java.io.IOException;
  * <p>
  * Created by 沈燕明 on 2019/6/2.
  */
-@Component
 public class SymSignInFailedHandler implements AuthenticationFailureHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SymSignInFailedHandler.class);
