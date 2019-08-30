@@ -120,7 +120,7 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()//停止CSRF校验
                 //获取退出登录组件
                 .logout()
-                    .logoutUrl("/symLogout")//指定前端要执行退出登录的请求地址，默认为/logout
+                    .logoutUrl(symSecurityProperties.getBrowser().getLogoutUrl())//指定前端要执行退出登录的请求地址，默认为/logout
                     .deleteCookies("JSESSIONID")//指定退出登录成功后要删除的cookie名称
                     //.logoutSuccessUrl("")//指定退出登录成功后的跳转地址，默认为登录页
                     .invalidateHttpSession(true).logoutSuccessHandler(symLogoutSuccessHandler)//指定退出登录成功后的处理器，它和上面的logoutSuccessUrl只能一个生效，且处理器的优先级高
@@ -134,7 +134,7 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 // 获取会话管理组件
                 .sessionManagement()
-                    .invalidSessionUrl("/invalid/session")//session非法的跳转地址，所谓session非法就是：Servlet容器没有这个Session
+                    .invalidSessionUrl(symSecurityProperties.getBrowser().getInvalidSessionUrl())//session非法的跳转地址，所谓session非法就是：Servlet容器没有这个Session
                     .maximumSessions(1)//表示最大只允许同一个用户在同一时间内登录
                     .maxSessionsPreventsLogin(true)//表示当同一个用户同时登录的个数达到最大值时，拒绝此用户后面的登录
                     .expiredSessionStrategy(new SymSessionExpiredStrategy())//配置当session过期时的处理策略
@@ -149,8 +149,7 @@ class SymSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // apply()可以整合另一个完整的springSecurityConfig配置类，这里整合第三方配置类
                 .apply(springSocialConfigurer)
                     .and();
-
-        // //获取授权组件,交于自定义配置管理器，整合全局的权限配置
+        // 获取授权组件,交于自定义配置管理器，整合全局的权限配置
         symAuthorizationConfigManager.addConfig(httpSecurity.authorizeRequests());
     }
 

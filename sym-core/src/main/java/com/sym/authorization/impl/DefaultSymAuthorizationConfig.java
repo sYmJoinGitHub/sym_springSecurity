@@ -30,5 +30,8 @@ public class DefaultSymAuthorizationConfig implements SymAuthorizationConfig {
                 //所以只有access()方法可以对同一组url做多个权限的配置，其它权限表达式方法只能代表一项，不能为一组url做多种权限配置
                 .antMatchers("putOne").access("hasRole('ADMIN') and hasAnyAuthority('good','bad')");
         */
+
+        // 其它模块都把各自的权限路径弄好，最后交由它来把控最后一个资源路径，它可以调用一个方法去判断，true意味着通过，false意味着不通过
+        // config.anyRequest().access("@rbacSymService.hasPermission(request,authentication)");
     }
 }

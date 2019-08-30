@@ -57,7 +57,6 @@ public class UserController {
     @Autowired
     private SymSecurityProperties symSecurityProperties;
 
-
     /**
      * 当springSecurity发现一个请求需要认证时，会把请求转发到这里
      *
@@ -110,6 +109,7 @@ public class UserController {
         return ResultInfo.failed("会话过期,请先登录~！");
     }
 
+
     /**
      * 如果配置登陆成功转发地址：成功登录会将请求转发到这个方法上
      *
@@ -120,6 +120,7 @@ public class UserController {
         return "恭喜你已经成功登录了";
     }
 
+
     /**
      * 如果配置登陆失败转发地址：登录失败会将请求转发到这个方法上
      *
@@ -129,6 +130,7 @@ public class UserController {
     public String loginFailed() {
         return "账户或密码错误";
     }
+
 
     /**
      * 需要先认证的请求
@@ -149,6 +151,26 @@ public class UserController {
     @GetMapping("me")
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+
+    /**
+     * 需要有角色 USER
+     * @return
+     */
+    @GetMapping("user/one")
+    public UserDto getOne(){
+        return new UserDto(123L,"积分机号",21);
+    }
+
+
+    /**
+     * 需要有权限 see_more
+     * @return
+     */
+    @GetMapping("more")
+    public String getMore(){
+        return "梦幻西游";
     }
 
 }
